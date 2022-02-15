@@ -28,7 +28,6 @@ class TasksController < ApplicationController
   # 1) GET the HTML form (pre-filled with task attributes) for editing = 1 request
 
   def edit
-    set_task
   end
   # 2) PATCH the parameters to update an existing task = 1 request
 
