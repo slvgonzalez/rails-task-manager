@@ -7,7 +7,7 @@ class TasksController < ApplicationController
   end
 
   def show
-    @task = Task.find(params[:id])
+    set_task
   end
 
   def new
@@ -28,12 +28,12 @@ class TasksController < ApplicationController
   # 1) GET the HTML form (pre-filled with task attributes) for editing = 1 request
 
   def edit
-    @task = Task.find(params[:id])
+    set_task
   end
   # 2) PATCH the parameters to update an existing task = 1 request
 
   def update
-    @task = Task.find(params[:id])
+    set_task
     # @task.update(params[:task])
     @task.update(task_params)
     # same as in create the commented out line would raise ActiveModel::ForbiddenAttributesError,
@@ -44,7 +44,7 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find(params[:id])
+    set_task
     @task.destroy
 
     # no need for app/views/tasks/destroy.html.erb
