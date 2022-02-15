@@ -1,4 +1,7 @@
 class TasksController < ApplicationController
+  # line below will call #set_task method before specified actions
+  before_action :set_task, only: [:show, :edit, :update, :destroy]
+
   def index
     @tasks = Task.all
   end
@@ -22,12 +25,12 @@ class TasksController < ApplicationController
     redirect_to task_path(@task)
   end
   # 2 steps to UPDATE / 2 requests
-  # 1) GET the HTML form (pre-filled with restaurant attributes) for editing = 1 request
+  # 1) GET the HTML form (pre-filled with task attributes) for editing = 1 request
 
   def edit
     @task = Task.find(params[:id])
   end
-  # 2) PATCH the parameters to update an existing restaurant = 1 request
+  # 2) PATCH the parameters to update an existing task = 1 request
 
   def update
     @task = Task.find(params[:id])
@@ -36,8 +39,8 @@ class TasksController < ApplicationController
     # same as in create the commented out line would raise ActiveModel::ForbiddenAttributesError,
     # that's why we need a private section for protection (we use Strong Params)
 
-    # no need for app/views/restaurants/update.html.erb
-    redirect_to restaurant_path(@restaurant)
+    # no need for app/views/tasks/update.html.erb
+    redirect_to task_path(@task)
   end
 
   def destroy
@@ -52,5 +55,10 @@ class TasksController < ApplicationController
 
   def task_params
     params.require(:task).permit(:title, :details, :completed)
+  end
+
+  # We made this method to run before edit and create because they have 4 lines in common.
+  def set_task
+    @task = Task.find(params[:id])
   end
 end
