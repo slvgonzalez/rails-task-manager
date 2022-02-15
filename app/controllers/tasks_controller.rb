@@ -10,4 +10,5 @@ class TasksController < ApplicationController
   def new
     @task = Task.new # needed to instantiate the form_for
   end
+
 end
